@@ -1,6 +1,12 @@
 library(tercen)
 library(tidyverse)
 
+
+options("tercen.workflowId"= "d30382066b71e6e7995cee981c001603")
+options("tercen.stepId"= "5-6")
+
+
+
 ctx <- tercenCtx() 
 
 input <- list(
@@ -14,7 +20,7 @@ input <- list(
   NC.factor = ctx$colors[[1]],
   NC.annotation = "DMSO",
   value = ".y",
-  Ignore.negatives = as.logical(ctx$op.value('ignore negatives'))
+  Ignore.negatives =  as.logical(ctx$op.value('ignore negatives'))
 )
 
 ttest <- function(pop1, pop2, input) {
@@ -63,17 +69,14 @@ responsefunction <- function(df, input) {
   NC.annot <- input$NC.annotation
 
   pop1 <- subset(df, df[[NC.factor]] == NC.annot)[[input$value]]
-  plyr::ddply(NC.factor, function(x) {
-    response2(x, pop1, input)
-  })
-
   df <- df %>% plyr::ddply(NC.factor, function(x) {
     dostats(x, pop1, input)
-  })
+   })
   return(df)
 }
 
 ctx %>%
+  select()  %>% 
   plyr::ddply(~.ri, function(x) {
     responsefunction(x, input)
   }) %>% 
