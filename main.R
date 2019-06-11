@@ -82,7 +82,7 @@ ctxcore  %>%
   plyr::ddply(~.ri, function(x) {
     responsefunction(x, input) 
     }) %>%
-  ctxcore$addNamespace() %>%
-  ctxcore$save()
+  ctx$addNamespace() %>%
+  ctx$save()
   
 
