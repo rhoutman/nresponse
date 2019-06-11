@@ -82,6 +82,17 @@ ctxcore  %>%
   plyr::ddply(~.ri, function(x) {
     responsefunction(x, input) 
     }) %>%
+  group_by(.ri, .ci) %>% 
+  summarize(
+    binding = mean(binding),
+    sem = mean(sem),
+    p = mean(p),
+    n = mean(n),
+    sd = mean(sd),
+    cv = mean(cv),
+    ratio = mean(ratio),
+    MI = mean(MI) 
+    ) %>% 
   ctx$addNamespace() %>%
   ctx$save()
   
