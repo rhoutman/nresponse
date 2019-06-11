@@ -1,0 +1,17 @@
+{
+  "name": "nresponse",
+  "description": "calculate a set of descriptive response statistics",
+  "tags": ["simple statistics"],
+  "authors": ["Rene Houtman"],
+  "urls": ["https://github.com/rhoutman/nresponse"],
+  "properties": [
+  {
+    "kind": "BooleanProperty",
+    "name": "ignore negatives",
+    "defaultValue": false,
+    "description": "When ignoring negatives, no ratio or MI is calculated"
+  }
+  ]
+}
+
+
