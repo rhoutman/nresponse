@@ -1,9 +1,6 @@
 library(tercen)
 library(tidyverse)
 
-# options("tercen.workflowId"= "d30382066b71e6e7995cee981c001603")
-# options("tercen.stepId"= "5-6")
-
 ctx <- tercenCtx() 
 
 input <- list(
@@ -14,7 +11,7 @@ input <- list(
   conf.level = 0.95,
   abase = 10,
   do.ttest = T,
-  NC.factor = ctxcore$colors[[1]],
+  NC.factor = ctx$colors[[1]],
   NC.annotation = "DMSO",
   value = ".y",
   Ignore.negatives = as.logical(ctxcore$op.value('ignore negatives'))
