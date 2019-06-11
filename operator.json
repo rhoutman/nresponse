@@ -9,7 +9,7 @@
     "kind": "BooleanProperty",
     "name": "ignore negatives",
     "defaultValue": false,
-    "description": "When ignoring negatives, no ratio or MI is calculated"
+    "description": "If true, no ratio or MI is calculated"
   }
   ]
 }
