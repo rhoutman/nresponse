@@ -10,6 +10,12 @@
     "name": "ignore negatives",
     "defaultValue": false,
     "description": "If true, no ratio or MI is calculated"
+  },
+    {
+    "kind": "BooleanProperty",
+    "name": "convert negatives",
+    "defaultValue": true,
+    "description": "Convert negative values to 1"
   }
   ]
 }

@@ -1,7 +1,8 @@
 library(tercen)
 library(tidyverse)
 
-ctx <- tercenCtx() 
+
+ctxcore <- tercenCtx() 
 
 input <- list(
   alternative = "two.sided",
@@ -11,11 +12,18 @@ input <- list(
   conf.level = 0.95,
   abase = 10,
   do.ttest = T,
-  NC.factor = ctx$colors[[1]],
+  NC.factor = ctxcore$colors[[1]],
   NC.annotation = "DMSO",
   value = ".y",
-  Ignore.negatives =  as.logical(ctx$op.value('ignore negatives'))
+  Ignore.negatives = as.logical(ctxcore$op.value('ignore negatives'))
 )
+
+ctxcore <- ctxcore %>% 
+  select() 
+
+if(as.logical(ctxcore$op.value('convert negatives'))){
+  ctxcore$.y <- with(ctxcore, replace(.y, .y<1, 1))
+}
 
 ttest <- function(pop1, pop2, input) {
   alternative <- input$alternative
@@ -47,7 +55,7 @@ dostats <- function(df, pop1, input) {
   }
 
   if (input$Ignore.negatives == F) {
-    if (ctx %>% select() %>% pull(.y) %>% min() <= 0)
+    if (ctxcore %>% pull(.y) %>% min() <= 0)
     stop("First, remove zeros and negative values from your measurement!")
     df$ratio <- round(mean(pop2) / mean(pop1), digits = 2)
     df$MI <- round(log((mean(pop2) / mean(pop1)), abase), digits = 2)
@@ -69,12 +77,13 @@ responsefunction <- function(df, input) {
   return(df)
 }
 
-ctx %>%
-  select()  %>% 
+
+
+ctxcore  %>% 
   plyr::ddply(~.ri, function(x) {
-    responsefunction(x, input)
-  }) %>% 
-  ctx$addNamespace() %>%
-  ctx$save()
+    responsefunction(x, input) 
+    })%>% 
+  ctxcore$addNamespace() %>%
+  ctxcore$save()
   
 
