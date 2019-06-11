@@ -84,4 +84,4 @@ ctx %>%
   ctx$addNamespace() %>%
   ctx$save()
   
-ctx$colors[[1]]
+
