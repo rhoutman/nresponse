@@ -1,12 +1,6 @@
 library(tercen)
 library(tidyverse)
 
-
-options("tercen.workflowId"= "d30382066b71e6e7995cee981c001603")
-options("tercen.stepId"= "5-6")
-
-
-
 ctx <- tercenCtx() 
 
 input <- list(

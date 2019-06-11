@@ -15,10 +15,10 @@ input <- list(
   conf.level = 0.95,
   abase = 10,
   do.ttest = T,
-  NC.factor = "js0.compound",
+  NC.factor = ctx$colors[[1]],
   NC.annotation = "DMSO",
   value = ".y",
-  Ignore.negatives = T
+  Ignore.negatives =  as.logical(ctx$op.value('ignore negatives'))
 )
 
 ttest <- function(pop1, pop2, input) {
@@ -27,7 +27,7 @@ ttest <- function(pop1, pop2, input) {
   paired <- input$paired
   var.equal <- input$var.equal
   conf.level <- input$conf.level
-
+  
   ds <- try(t.test(pop1, pop2, alternative, mu, paired, var.equal, conf.level))
   p <- if (!inherits(ds, "try-error")) {
     ds$p.value
@@ -49,10 +49,10 @@ dostats <- function(df, pop1, input) {
   if (dottest) {
     df$p <- ttest(pop1, pop2, input)
   }
-
+  
   if (input$Ignore.negatives == F) {
     if (ctx %>% select() %>% pull(.y) %>% min() <= 0)
-    stop("First, remove zeros and negative values from your measurement!")
+      stop("First, remove zeros and negative values from your measurement!")
     df$ratio <- round(mean(pop2) / mean(pop1), digits = 2)
     df$MI <- round(log((mean(pop2) / mean(pop1)), abase), digits = 2)
   } else {
@@ -65,12 +65,8 @@ dostats <- function(df, pop1, input) {
 responsefunction <- function(df, input) {
   NC.factor <- input$NC.factor
   NC.annot <- input$NC.annotation
-
+  
   pop1 <- subset(df, df[[NC.factor]] == NC.annot)[[input$value]]
-  plyr::ddply(NC.factor, function(x) {
-    response2(x, pop1, input)
-  })
-
   df <- df %>% plyr::ddply(NC.factor, function(x) {
     dostats(x, pop1, input)
   })
@@ -78,9 +74,11 @@ responsefunction <- function(df, input) {
 }
 
 ctx %>%
+  select()  %>% 
   plyr::ddply(~.ri, function(x) {
     responsefunction(x, input)
   }) %>% 
   ctx$addNamespace() %>%
   ctx$save()
-  
+
+
