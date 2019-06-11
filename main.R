@@ -1,8 +1,10 @@
 library(tercen)
 library(tidyverse)
 
+# options("tercen.workflowId"= "d30382066b71e6e7995cee981c001603")
+# options("tercen.stepId"= "5-6")
 
-ctxcore <- tercenCtx() 
+ctx <- tercenCtx() 
 
 input <- list(
   alternative = "two.sided",
@@ -18,10 +20,10 @@ input <- list(
   Ignore.negatives = as.logical(ctxcore$op.value('ignore negatives'))
 )
 
-ctxcore <- ctxcore %>% 
+ctxcore <- ctx %>% 
   select() 
 
-if(as.logical(ctxcore$op.value('convert negatives'))){
+if(as.logical(ctx$op.value('convert negatives'))){
   ctxcore$.y <- with(ctxcore, replace(.y, .y<1, 1))
 }
 
@@ -82,7 +84,7 @@ responsefunction <- function(df, input) {
 ctxcore  %>% 
   plyr::ddply(~.ri, function(x) {
     responsefunction(x, input) 
-    })%>% 
+    }) %>%
   ctxcore$addNamespace() %>%
   ctxcore$save()
   
