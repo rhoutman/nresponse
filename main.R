@@ -1,9 +1,5 @@
 library(tercen)
 library(tidyverse)
-# #http://127.0.0.1:5402/#ds/d30382066b71e6e7995cee981c001603/5-6
-# # http://127.0.0.1:5402/#ds/ee0cbc176ba159782635097a88009c5b/8-4
-# options("tercen.workflowId"= "d30382066b71e6e7995cee981c001603")
-# options("tercen.stepId"= "5-6")
 
 ctx <- tercenCtx() 
 
@@ -18,7 +14,7 @@ input <- list(
   NC.factor = ctx$colors[[1]],
   NC.annotation = "DMSO",
   value = ".y",
-  Ignore.negatives = F
+  Ignore.negatives = as.logical(ctx$op.value('ignore negatives'))
 )
 
 ttest <- function(pop1, pop2, input) {
