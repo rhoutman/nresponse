@@ -14,7 +14,7 @@ input <- list(
   NC.factor = ctx$colors[[1]],
   NC.annotation = "DMSO",
   value = ".y",
-  Ignore.negatives = as.logical(ctxcore$op.value('ignore negatives'))
+  Ignore.negatives = as.logical(ctx$op.value('ignore negatives'))
 )
 
 ctxcore <- ctx %>% 
