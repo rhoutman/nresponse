@@ -16,6 +16,12 @@
     "name": "convert negatives",
     "defaultValue": true,
     "description": "Convert negative values to 1"
+  },
+    {
+    "kind": "StringProperty",
+    "name": "negative control",
+    "defaultValue": "DMSO",
+    "description": "Annotation for the negative control"
   }
   ]
 }
