@@ -95,7 +95,7 @@ dostats <- function(df, pop1, input) {
 # select the negative control and apply calculation
 responsefunction <- function(df, input) {
   NC.annot <-  ctx$op.value('negative control') %>% as.character()
-  if(!NC.annot %in% ctxcore %>%  pull(NCfactor)){
+  if(!NC.annot %in% ctxcore$NCfactor){
     stop("This negative control is not found in the data. Please correct in the operator properties.")
     
   }
