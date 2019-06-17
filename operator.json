@@ -22,8 +22,17 @@
     "name": "negative control",
     "defaultValue": "DMSO",
     "description": "Annotation for the negative control"
+  },
+    {
+    "kind": "DoubleProperty",
+    "name": "cutoff value",
+    "defaultValue": 50,
+    "description": "All values below this value will be set to this value"
   }
+  
   ]
 }
+
+
 
 

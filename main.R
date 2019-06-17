@@ -45,7 +45,9 @@ ctxcore <- ctxcore %>%
 
 # if indicated in properties, convert negatives values to small positive
 if(as.logical(ctx$op.value('convert negatives'))){
-  ctxcore$.y <- with(ctxcore, replace(.y, .y<1, 1))
+  
+  floor <- ctx$op.value('cutoff value')
+  ctxcore$.y <- with(ctxcore, replace(.y, .y<floor, floor))
 }
 
 
