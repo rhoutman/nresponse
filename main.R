@@ -67,6 +67,7 @@ ttest <- function(pop1, pop2, input) {
       1
     }
   }
+}
 
 # perform some basic calculations
 dostats <- function(df, pop1, input) {
