@@ -59,14 +59,14 @@ ttest <- function(pop1, pop2, input) {
   var.equal <- input$var.equal
   conf.level <- input$conf.level
   
-  ds <- try(t.test(pop1, pop2, alternative, mu, paired, var.equal, conf.level))
-  p <- if (!inherits(ds, "try-error")) {
-    ds$p.value
-  } else {
-    1
+  if(length(pop1 <2) | length(pop2 <2)){ p <- 1}else{
+    ds <- try(t.test(pop1, pop2, alternative, mu, paired, var.equal, conf.level))
+    p <- if (!inherits(ds, "try-error")) {
+      ds$p.value
+    } else {
+      1
+    }
   }
-  return(p)
-}
 
 # perform some basic calculations
 dostats <- function(df, pop1, input) {
